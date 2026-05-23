@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE UNKNOWN SERIES | READER</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#050505',
+                        blood: '#8b0000',
+                        terminal: '#ff3333'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #050505; color: #d1d5db; font-family: 'Inter', sans-serif; }
+        .active-link { border-color: #ff3333 !important; color: #ffffff !important; background: rgba(255, 51, 51, 0.1); }
+        .iframe-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; background: #000; }
+        .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="p-6 text-center border-b border-gray-900 bg-void">
+        <h1 class="font-bold text-3xl md:text-5xl text-white tracking-widest uppercase">The Unknown Series</h1>
+        <p class="text-red-600 text-sm mt-2 font-mono uppercase tracking-[0.2em]">Select an episode to read</p>
+    </header>
+
+    <nav class="max-w-5xl mx-auto p-4 grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">
+        <button onclick="loadBook(1, 'https://online.fliphtml5.com/lsyfj/The-Unkown_-the-start/#p=1', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
+            <span class="text-2xl mb-1">📖</span>
+            <span class="text-xs font-bold tracking-widest group-hover:text-white">EP 1</span>
+        </button>
+        <button onclick="loadBook(2, 'https://online.fliphtml5.com/xradu/The-Unkown_-The-Awakning/', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
+            <span class="text-2xl mb-1">👁️</span>
+            <span class="text-xs font-bold tracking-widest group-hover:text-white">EP 2</span>
+        </button>
+        <button onclick="loadBook(3, 'https://online.fliphtml5.com/lsyfj/The-Unkown_-the-start/#p=1', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
+            <span class="text-2xl mb-1">🚪</span>
+            <span class="text-xs font-bold tracking-widest group-hover:text-white">EP 3</span>
+        </button>
+        <button onclick="loadBook(4, 'https://online.fliphtml5.com/lsyfj/The-Unkown_-The-Maze-Below/', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
+            <span class="text-2xl mb-1">🌀</span>
+            <span class="text-xs font-bold tracking-widest group-hover:text-white">EP 4</span>
+        </button>
+        <button onclick="loadBook(5, 'https://online.fliphtml5.com/xradu/The-Unkown_-Back-To-Normal/', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
+            <span class="text-2xl mb-1">🌲</span>
+            <span class="text-xs font-bold tracking-widest group-hover:text-white">EP 5</span>
+        </button>
+        <button onclick="loadBook(6, 'https://online.fliphtml5.com/lsyfj/The-Unkown_-Shut-Down-Protocall/', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
+            <span class="text-2xl mb-1">🔌</span>
+            <span class="text-xs font-bold tracking-widest group-hover:text-white">EP 6</span>
+        </button>
+        <button onclick="loadBook(7, 'https://app.milanote.com/1VwClF1CKXV5fG?p=uTB9ShFdIgu', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
+            <span class="text-2xl mb-1">📝</span>
+            <span class="text-xs font-bold tracking-widest group-hover:text-white">NOTES</span>
+        </button>
+    </nav>
+
+    <main class="max-w-5xl mx-auto p-4 mt-8">
+        <div id="reader-stage" class="hidden">
+            <div id="external-link-container" class="mb-4 text-center hidden">
+                <a id="external-link" href="#" target="_blank" class="text-red-500 hover:text-white underline text-sm uppercase tracking-widest">
+                    If the board doesn't load, click here to open in new tab
+                </a>
+            </div>
+            <div class="iframe-container shadow-2xl shadow-red-900/20 border border-gray-800">
+                <iframe id="flipbook-embed" src="" allowfullscreen></iframe>
+            </div>
+            <div class="mt-4 text-center text-gray-500 italic text-sm">
+                * If the content does not load, please check your connection.
+            </div>
+        </div>
+        
+        <div id="placeholder" class="text-center py-20 border border-dashed border-gray-800 rounded">
+            <p class="text-gray-600 uppercase tracking-widest text-sm">Select an item above to load</p>
+        </div>
+    </main>
+
+    <script>
+        function loadBook(id, url, btn) {
+            // UI Feedback
+            document.querySelectorAll('.book-btn').forEach(b => b.classList.remove('active-link'));
+            btn.classList.add('active-link');
+
+            // Toggle Visibility
+            document.getElementById('placeholder').classList.add('hidden');
+            document.getElementById('reader-stage').classList.remove('hidden');
+
+            // Handle External Link Warning
+            const extContainer = document.getElementById('external-link-container');
+            const extLink = document.getElementById('external-link');
+            if (id === 7) {
+                extContainer.classList.remove('hidden');
+                extLink.href = url;
+            } else {
+                extContainer.classList.add('hidden');
+            }
+
+            // Load iframe
+            const iframe = document.getElementById('flipbook-embed');
+            iframe.src = url;
+        }
+    </script>
+</body>
+</html>
