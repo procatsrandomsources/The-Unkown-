@@ -10,8 +10,8 @@
         body { background-color: #0a0a0a; color: #e5e5e5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         .glow { box-shadow: 0 0 15px rgba(220, 38, 38, 0.5); }
         iframe { width: 100%; height: 600px; border: none; border-radius: 8px; }
-        .coming-soon { opacity: 0.5; cursor: not-allowed; }
-        .nav-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .coming-soon { opacity: 0.5; cursor: not-allowed; border-style: dashed; }
+        .nav-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -22,45 +22,33 @@
     </header>
 
     <div class="max-w-6xl mx-auto">
+        <!-- Main Navigation -->
+        <h2 class="text-xl font-bold text-gray-500 mb-6 uppercase tracking-wider">Main Archive</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-            <!-- Book 1 -->
-            <button onclick="loadBook('https://online.fliphtml5.com/cyvst/xiec/', 'The Start (Book 1)')" class="nav-btn p-4 bg-red-900 text-white font-bold glow rounded hover:bg-red-800 transition">
+            <button onclick="loadBook('https://online.fliphtml5.com/lsyfj/The-Unkown_-the-start/', 'The Start (Book 1)')" class="nav-btn p-4 bg-red-900 text-white font-bold glow rounded hover:bg-red-800 transition">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                 Book 1
             </button>
-
-            <!-- Complete Collection -->
             <button onclick="loadBook('https://online.fliphtml5.com/cyvst/xiec/', 'Complete Collection')" class="nav-btn p-4 bg-red-900 text-white font-bold glow rounded hover:bg-red-800 transition">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 Collection
             </button>
-            
-            <!-- Episodes 2-6 (Coming Soon) -->
-            <div class="nav-btn p-4 bg-zinc-900 border border-zinc-800 rounded coming-soon">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                Book 2 (Soon)
-            </div>
-            <div class="nav-btn p-4 bg-zinc-900 border border-zinc-800 rounded coming-soon">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                Book 3 (Soon)
-            </div>
-            <div class="nav-btn p-4 bg-zinc-900 border border-zinc-800 rounded coming-soon">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                Book 4 (Soon)
-            </div>
-            <div class="nav-btn p-4 bg-zinc-900 border border-zinc-800 rounded coming-soon">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                Book 5 (Soon)
-            </div>
-            <div class="nav-btn p-4 bg-zinc-900 border border-zinc-800 rounded coming-soon">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                Book 6 (Soon)
-            </div>
-            
+            <button class="nav-btn p-4 bg-zinc-900 border border-zinc-800 rounded coming-soon">Book 2-6 (Soon)</button>
             <button onclick="loadBook('https://app.milanote.com/1VwClF1CKXV5fG?p=uTB9ShFdIgu', 'Project Notes')" class="nav-btn p-4 bg-zinc-800 border border-zinc-600 hover:bg-zinc-700 transition rounded">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                 Notes
             </button>
+        </div>
+
+        <!-- Historical Archive -->
+        <h2 class="text-xl font-bold text-gray-500 mb-6 uppercase tracking-wider">Historical Archive (Legacy PDFs)</h2>
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4 mb-12">
+            <button onclick="loadBook('https://online.fliphtml5.com/lsyfj/The-Unkown_-the-start/', 'Start (Legacy)')" class="text-xs p-2 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 rounded">Start</button>
+            <button onclick="loadBook('https://online.fliphtml5.com/xradu/The-Unkown_-The-Awakning/', 'Awakening (Legacy)')" class="text-xs p-2 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 rounded">Awakening</button>
+            <button onclick="loadBook('https://online.fliphtml5.com/lsyfj/The-Unkown_-No-Way-Out/', 'No Way Out (Legacy)')" class="text-xs p-2 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 rounded">No Way Out</button>
+            <button onclick="loadBook('https://online.fliphtml5.com/lsyfj/The-Unkown_-The-Maze-Below/', 'Maze Below (Legacy)')" class="text-xs p-2 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 rounded">Maze Below</button>
+            <button onclick="loadBook('https://online.fliphtml5.com/xradu/The-Unkown_-Back-To-Normal/', 'Back To Normal (Legacy)')" class="text-xs p-2 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 rounded">Back Normal</button>
+            <button onclick="loadBook('https://online.fliphtml5.com/lsyfj/The-Unkown_-Shut-Down-Protocall/', 'Shutdown (Legacy)')" class="text-xs p-2 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 rounded">Shutdown</button>
         </div>
 
         <div id="viewer-container" class="hidden">
@@ -83,7 +71,7 @@
             titleEl.innerText = title;
             linkEl.href = url;
             wrapper.innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: document.getElementById('viewer-container').offsetTop - 20, behavior: 'smooth' });
         }
     </script>
 </body>
