@@ -1,120 +1,92 @@
+
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE UNKNOWN SERIES | READER</title>
-    
+    <title>THE UNKNOWN SERIES | Archive</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        void: '#050505',
-                        blood: '#8b0000',
-                        terminal: '#ff3333'
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
-        body { background-color: #050505; color: #d1d5db; font-family: 'Inter', sans-serif; }
-        .active-link { border-color: #ff3333 !important; color: #ffffff !important; background: rgba(255, 51, 51, 0.1); }
-        .iframe-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; background: #000; }
-        .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        body { background-color: #0a0a0a; color: #e5e5e5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .glow { box-shadow: 0 0 15px rgba(220, 38, 38, 0.5); }
+        iframe { width: 100%; height: 600px; border: none; border-radius: 8px; }
+        .coming-soon { opacity: 0.5; cursor: not-allowed; }
+        .nav-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; }
     </style>
 </head>
-<body class="antialiased">
+<body class="p-4 md:p-8">
 
-    <header class="p-6 text-center border-b border-gray-900 bg-void">
-        <h1 class="font-bold text-3xl md:text-5xl text-white tracking-widest uppercase">The Unknown Series</h1>
-        <p class="text-red-600 text-sm mt-2 font-mono uppercase tracking-[0.2em]">Select an episode or collection to read</p>
+    <header class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-red-700 tracking-widest uppercase">The Unknown Series</h1>
+        <p class="text-gray-400 mt-2 italic">Groves Research Facility Archives</p>
     </header>
 
-    <nav class="max-w-5xl mx-auto p-4 grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">
-        <button onclick="loadBook(1, 'https://online.fliphtml5.com/lsyfj/The-Unkown_-the-start/#p=1', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
-            <span class="text-2xl mb-1">📖</span>
-            <span class="text-xs font-bold tracking-widest group-hover:text-white">EP 1</span>
-        </button>
-        <button onclick="loadBook(2, 'https://online.fliphtml5.com/xradu/The-Unkown_-The-Awakning/', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
-            <span class="text-2xl mb-1">👁️</span>
-            <span class="text-xs font-bold tracking-widest group-hover:text-white">EP 2</span>
-        </button>
-        <button onclick="loadBook(3, 'https://online.fliphtml5.com/lsyfj/The-Unkown_-the-start/#p=1', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
-            <span class="text-2xl mb-1">🚪</span>
-            <span class="text-xs font-bold tracking-widest group-hover:text-white">EP 3</span>
-        </button>
-        <button onclick="loadBook(4, 'https://online.fliphtml5.com/lsyfj/The-Unkown_-The-Maze-Below/', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
-            <span class="text-2xl mb-1">🌀</span>
-            <span class="text-xs font-bold tracking-widest group-hover:text-white">EP 4</span>
-        </button>
-        <button onclick="loadBook(5, 'https://online.fliphtml5.com/xradu/The-Unkown_-Back-To-Normal/', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
-            <span class="text-2xl mb-1">🌲</span>
-            <span class="text-xs font-bold tracking-widest group-hover:text-white">EP 5</span>
-        </button>
-        <button onclick="loadBook(6, 'https://online.fliphtml5.com/lsyfj/The-Unkown_-Shut-Down-Protocall/', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
-            <span class="text-2xl mb-1">🔌</span>
-            <span class="text-xs font-bold tracking-widest group-hover:text-white">EP 6</span>
-        </button>
-        <button onclick="loadBook(7, 'https://app.milanote.com/1VwClF1CKXV5fG?p=uTB9ShFdIgu', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
-            <span class="text-2xl mb-1">📝</span>
-            <span class="text-xs font-bold tracking-widest group-hover:text-white">NOTES</span>
-        </button>
-        <button onclick="loadBook(8, 'https://online.fliphtml5.com/xradu/rpno/', this)" class="book-btn p-4 border border-gray-800 hover:border-red-900 transition flex flex-col items-center group">
-            <span class="text-2xl mb-1">📚</span>
-            <span class="text-xs font-bold tracking-widest group-hover:text-white">COLLECTION</span>
-        </button>
-    </nav>
+    <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <!-- Book 1 -->
+            <button onclick="loadBook('https://online.fliphtml5.com/lsyfj/The-Unkown_-the-start/', 'The Start (Book 1)')" class="nav-btn p-4 bg-red-900 text-white font-bold glow rounded hover:bg-red-800 transition">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                Book 1
+            </button>
 
-    <main class="max-w-5xl mx-auto p-4 mt-8">
-        <div id="reader-stage" class="hidden">
-            <div id="external-link-container" class="mb-4 text-center hidden">
-                <a id="external-link" href="#" target="_blank" class="text-red-500 hover:text-white underline text-sm uppercase tracking-widest">
-                    If the board doesn't load, click here to open in new tab
-                </a>
+            <!-- Complete Collection -->
+            <button onclick="loadBook('https://online.fliphtml5.com/cyvst/xiec/', 'Complete Collection')" class="nav-btn p-4 bg-red-900 text-white font-bold glow rounded hover:bg-red-800 transition">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                Collection
+            </button>
+            
+            <!-- Episodes 2-6 (Coming Soon) -->
+            <div class="nav-btn p-4 bg-zinc-900 border border-zinc-800 rounded coming-soon">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                Book 2 (Soon)
             </div>
-            <div class="iframe-container shadow-2xl shadow-red-900/20 border border-gray-800">
-                <iframe id="flipbook-embed" src="" allowfullscreen></iframe>
+            <div class="nav-btn p-4 bg-zinc-900 border border-zinc-800 rounded coming-soon">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                Book 3 (Soon)
             </div>
-            <div class="mt-4 text-center text-gray-500 italic text-sm">
-                * If the content does not load, please check your connection.
+            <div class="nav-btn p-4 bg-zinc-900 border border-zinc-800 rounded coming-soon">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                Book 4 (Soon)
+            </div>
+            <div class="nav-btn p-4 bg-zinc-900 border border-zinc-800 rounded coming-soon">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                Book 5 (Soon)
+            </div>
+            <div class="nav-btn p-4 bg-zinc-900 border border-zinc-800 rounded coming-soon">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                Book 6 (Soon)
+            </div>
+            
+            <button onclick="loadBook('https://app.milanote.com/1VwClF1CKXV5fG?p=uTB9ShFdIgu', 'Project Notes')" class="nav-btn p-4 bg-zinc-800 border border-zinc-600 hover:bg-zinc-700 transition rounded">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                Notes
+            </button>
+        </div>
+
+        <div id="viewer-container" class="hidden">
+            <h2 id="book-title" class="text-2xl font-bold mb-4 text-red-500 text-center"></h2>
+            <div id="embed-wrapper" class="bg-black p-2 rounded border border-red-900"></div>
+            <div class="text-center mt-4">
+                <a id="external-link" href="#" target="_blank" class="text-sm text-red-400 underline">Open in New Tab</a>
             </div>
         </div>
-        
-        <div id="placeholder" class="text-center py-20 border border-dashed border-gray-800 rounded">
-            <p class="text-gray-600 uppercase tracking-widest text-sm">Select an item above to load</p>
-        </div>
-    </main>
+    </div>
 
     <script>
-        function loadBook(id, url, btn) {
-            // UI Feedback
-            document.querySelectorAll('.book-btn').forEach(b => b.classList.remove('active-link'));
-            btn.classList.add('active-link');
-
-            // Toggle Visibility
-            document.getElementById('placeholder').classList.add('hidden');
-            document.getElementById('reader-stage').classList.remove('hidden');
-
-            // Handle External Link Warning (Milanote is ID 7)
-            const extContainer = document.getElementById('external-link-container');
-            const extLink = document.getElementById('external-link');
-            if (id === 7) {
-                extContainer.classList.remove('hidden');
-                extLink.href = url;
-            } else {
-                extContainer.classList.add('hidden');
-            }
-
-            // Load iframe
-            const iframe = document.getElementById('flipbook-embed');
-            iframe.src = url;
+        function loadBook(url, title) {
+            const container = document.getElementById('viewer-container');
+            const wrapper = document.getElementById('embed-wrapper');
+            const titleEl = document.getElementById('book-title');
+            const linkEl = document.getElementById('external-link');
+            
+            container.classList.remove('hidden');
+            titleEl.innerText = title;
+            linkEl.href = url;
+            wrapper.innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
 </html>
+
+```
