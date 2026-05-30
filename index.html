@@ -10,10 +10,23 @@
       font-family: Arial, Helvetica, sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      background: linear-gradient(to bottom, #050505, #111111);
+      background: #050505;
       color: white;
       overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.06), transparent 60%);
+      pointer-events: none;
+      z-index: -1;
     }
 
     .hero {
@@ -21,91 +34,98 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 80px;
-      padding: 60px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
     }
 
-    .book-container {
-      perspective: 1400px;
+    .book-wrap {
+      perspective: 1600px;
+      margin-bottom: 40px;
     }
 
     .book {
-      width: 320px;
-      height: 480px;
+      width: 280px;
+      height: 400px;
       position: relative;
       transform-style: preserve-3d;
-      animation: floatBook 6s ease-in-out infinite;
-      transition: transform 0.5s;
-    }
-
-    .book:hover {
-      transform: rotateY(-18deg) rotateX(5deg) scale(1.03);
+      animation: bob 5s ease-in-out infinite;
     }
 
     .book img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 8px;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+      border-radius: 12px;
+      box-shadow: 0 35px 80px rgba(0,0,0,0.8);
+      transform: rotateY(-18deg) rotateX(8deg);
     }
 
     .book::before {
       content: "";
       position: absolute;
-      left: -12px;
-      top: 4px;
-      width: 14px;
-      height: 97%;
-      background: #1f1f1f;
+      left: -18px;
+      top: 6px;
+      width: 22px;
+      height: 96%;
+      background: linear-gradient(to bottom, #1e1e1e, #444);
       transform: rotateY(90deg);
-      transform-origin: right;
-      border-radius: 4px;
+      border-radius: 5px;
     }
 
-    @keyframes floatBook {
-      0% { transform: rotateY(-12deg) translateY(0px); }
-      50% { transform: rotateY(-12deg) translateY(-10px); }
-      100% { transform: rotateY(-12deg) translateY(0px); }
+    .book::after {
+      content: "";
+      position: absolute;
+      bottom: -35px;
+      left: 50%;
+      width: 70%;
+      height: 30px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      filter: blur(18px);
+      border-radius: 50%;
     }
 
-    .content {
-      max-width: 650px;
+    @keyframes bob {
+      0% { transform: translateY(0px) rotateY(-8deg); }
+      50% { transform: translateY(-18px) rotateY(-12deg); }
+      100% { transform: translateY(0px) rotateY(-8deg); }
     }
 
     h1 {
       font-size: 4rem;
-      margin-bottom: 20px;
-      letter-spacing: 2px;
+      margin-bottom: 10px;
+      letter-spacing: 4px;
     }
 
     .tagline {
+      color: #9d9d9d;
       font-size: 1.2rem;
-      color: #999;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
     .blurb {
-      line-height: 1.8;
-      color: #d0d0d0;
-      font-size: 1.05rem;
+      max-width: 900px;
+      line-height: 2;
+      color: #d4d4d4;
+      font-size: 1.08rem;
       margin-bottom: 35px;
     }
 
     .buttons {
       display: flex;
-      gap: 20px;
+      gap: 18px;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     .btn {
       padding: 14px 28px;
-      border-radius: 12px;
+      border-radius: 999px;
       text-decoration: none;
       font-weight: bold;
       transition: 0.25s;
-      cursor: pointer;
     }
 
     .primary {
@@ -114,11 +134,11 @@
     }
 
     .primary:hover {
-      transform: translateY(-2px);
+      transform: scale(1.05);
     }
 
     .secondary {
-      border: 1px solid #444;
+      border: 1px solid #333;
       color: white;
       background: rgba(255,255,255,0.05);
     }
@@ -128,62 +148,58 @@
     }
 
     .viewer-section {
-      padding: 80px 40px;
+      padding: 100px 0;
+      background: linear-gradient(to bottom, #050505, #0e0e0e);
     }
 
     .viewer-title {
       text-align: center;
-      font-size: 2.8rem;
-      margin-bottom: 40px;
+      font-size: 3rem;
+      margin-bottom: 50px;
     }
 
-    .pdf-viewer {
+    .webtoon-viewer {
       width: 100%;
-      max-width: 1200px;
-      height: 900px;
+      max-width: 950px;
       margin: auto;
-      border-radius: 18px;
+      background: #0a0a0a;
+      border-radius: 24px;
       overflow: hidden;
-      border: 1px solid #222;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-      background: #0d0d0d;
+      border: 1px solid #1d1d1d;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.7);
     }
 
-    iframe {
+    .webtoon-viewer iframe {
       width: 100%;
-      height: 100%;
+      height: 1400px;
       border: none;
+      background: #111;
     }
 
     footer {
       text-align: center;
-      padding: 40px;
-      color: #777;
-      font-size: 0.95rem;
+      padding: 50px;
+      color: #666;
+      letter-spacing: 2px;
     }
 
-    @media (max-width: 900px) {
-      .hero {
-        padding: 40px 20px;
-        gap: 40px;
-      }
-
+    @media (max-width: 768px) {
       h1 {
         font-size: 2.7rem;
       }
 
       .book {
-        width: 240px;
-        height: 360px;
+        width: 210px;
+        height: 310px;
       }
 
-      .pdf-viewer {
-        height: 650px;
+      .webtoon-viewer iframe {
+        height: 900px;
       }
     }
   </style></head>
 <body>  <section class="hero">
-    <div class="book-container">
+    <div class="book-wrap">
       <div class="book">
         <img src="Front.png" alt="The Unkown Cover" />
       </div>
@@ -206,8 +222,8 @@
 </div>
 
   </section>  <section class="viewer-section" id="viewer">
-    <h2 class="viewer-title">Read The Unkown</h2><div class="pdf-viewer">
-  <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=The%20Unknown.pdf"></iframe>
+    <h2 class="viewer-title">Read The Unkown</h2><div class="webtoon-viewer">
+  <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=The%20Unkown.pdf#zoom=page-fit"></iframe>
 </div>
 
   </section>  <footer>
