@@ -1,87 +1,216 @@
-
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE UNKNOWN SERIES | Archive</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background-color: #0a0a0a; color: #e5e5e5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .glow { box-shadow: 0 0 15px rgba(220, 38, 38, 0.5); }
-        iframe { width: 100%; height: 600px; border: none; border-radius: 8px; }
-        .coming-soon { opacity: 0.5; cursor: not-allowed; border-style: dashed; }
-        .nav-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s; }
-    </style>
-</head>
-<body class="p-4 md:p-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Unknown — Seven Days After</title>  <!-- SVG Book Favicon -->  <link rel="icon" type="image/svg+xml" href="front.svg" />  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-    <header class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-red-700 tracking-widest uppercase">The Unknown Series</h1>
-        <p class="text-gray-400 mt-2 italic">Groves Research Facility Archives</p>
-    </header>
+    body {
+      background: linear-gradient(to bottom, #050505, #111111);
+      color: white;
+      overflow-x: hidden;
+    }
 
-    <div class="max-w-6xl mx-auto">
-        <!-- Main Navigation -->
-        <h2 class="text-xl font-bold text-gray-500 mb-6 uppercase tracking-wider">Main Archive</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-            <!-- Book 1 -->
-            <button onclick="loadBook('https://online.fliphtml5.com/cyvst/ovoh/', 'The Start (Book 1)')" class="nav-btn p-4 bg-red-900 text-white font-bold glow rounded hover:bg-red-800">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                Book 1
-            </button>
-            
-            <!-- Collection -->
-            <button onclick="loadBook('https://online.fliphtml5.com/cyvst/ovoh/', 'Complete Collection')" class="nav-btn p-4 bg-red-900 text-white font-bold glow rounded hover:bg-red-800">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                Collection
-            </button>
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+      padding: 60px;
+      flex-wrap: wrap;
+    }
 
-            <!-- Episodes 2-6 (Coming Soon) -->
-            <div class="nav-btn p-4 bg-zinc-900 border border-zinc-800 rounded coming-soon">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                Books 2-6 (Soon)
-            </div>
+    .book-container {
+      perspective: 1400px;
+    }
 
-            <button onclick="loadBook('https://app.milanote.com/1VwClF1CKXV5fG?p=uTB9ShFdIgu', 'Project Notes')" class="nav-btn p-4 bg-zinc-800 border border-zinc-600 hover:bg-zinc-700 transition rounded">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                Notes
-            </button>
-        </div>
+    .book {
+      width: 320px;
+      height: 480px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: floatBook 6s ease-in-out infinite;
+      transition: transform 0.5s;
+    }
 
-        <!-- Historical Archive -->
-        <h2 class="text-xl font-bold text-gray-500 mb-6 uppercase tracking-wider">Historical Archive (Legacy PDFs)</h2>
-        <div class="grid grid-cols-2 md:grid-cols-6 gap-4 mb-12">
-            <button onclick="loadBook('https://online.fliphtml5.com/lsyfj/The-Unkown_-the-start/', 'Start (Legacy)')" class="text-xs p-2 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 rounded">Start</button>
-            <button onclick="loadBook('https://online.fliphtml5.com/xradu/The-Unkown_-The-Awakning/', 'Awakening (Legacy)')" class="text-xs p-2 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 rounded">Awakening</button>
-            <button onclick="loadBook('https://online.fliphtml5.com/lsyfj/The-Unkown_-No-Way-Out/', 'No Way Out (Legacy)')" class="text-xs p-2 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 rounded">No Way Out</button>
-            <button onclick="loadBook('https://online.fliphtml5.com/lsyfj/The-Unkown_-The-Maze-Below/', 'Maze Below (Legacy)')" class="text-xs p-2 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 rounded">Maze Below</button>
-            <button onclick="loadBook('https://online.fliphtml5.com/xradu/The-Unkown_-Back-To-Normal/', 'Back To Normal (Legacy)')" class="text-xs p-2 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 rounded">Back Normal</button>
-            <button onclick="loadBook('https://online.fliphtml5.com/lsyfj/The-Unkown_-Shut-Down-Protocall/', 'Shutdown (Legacy)')" class="text-xs p-2 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 rounded">Shutdown</button>
-        </div>
+    .book:hover {
+      transform: rotateY(-18deg) rotateX(5deg) scale(1.03);
+    }
 
-        <div id="viewer-container" class="hidden">
-            <h2 id="book-title" class="text-2xl font-bold mb-4 text-red-500 text-center"></h2>
-            <div id="embed-wrapper" class="bg-black p-2 rounded border border-red-900"></div>
-            <div class="text-center mt-4">
-                <a id="external-link" href="#" target="_blank" class="text-sm text-red-400 underline">Open in New Tab</a>
-            </div>
-        </div>
-    </div>
+    .book img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+    }
 
-    <script>
-        function loadBook(url, title) {
-            const container = document.getElementById('viewer-container');
-            const wrapper = document.getElementById('embed-wrapper');
-            const titleEl = document.getElementById('book-title');
-            const linkEl = document.getElementById('external-link');
-            
-            container.classList.remove('hidden');
-            titleEl.innerText = title;
-            linkEl.href = url;
-            wrapper.innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
-            window.scrollTo({ top: document.getElementById('viewer-container').offsetTop - 20, behavior: 'smooth' });
-        }
-    </script>
-</body>
+    .book::before {
+      content: "";
+      position: absolute;
+      left: -12px;
+      top: 4px;
+      width: 14px;
+      height: 97%;
+      background: #1f1f1f;
+      transform: rotateY(90deg);
+      transform-origin: right;
+      border-radius: 4px;
+    }
+
+    @keyframes floatBook {
+      0% { transform: rotateY(-12deg) translateY(0px); }
+      50% { transform: rotateY(-12deg) translateY(-10px); }
+      100% { transform: rotateY(-12deg) translateY(0px); }
+    }
+
+    .content {
+      max-width: 650px;
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      color: #999;
+      margin-bottom: 30px;
+    }
+
+    .blurb {
+      line-height: 1.8;
+      color: #d0d0d0;
+      font-size: 1.05rem;
+      margin-bottom: 35px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.25s;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: white;
+      color: black;
+    }
+
+    .primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .secondary {
+      border: 1px solid #444;
+      color: white;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .secondary:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .viewer-section {
+      padding: 80px 40px;
+    }
+
+    .viewer-title {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 40px;
+    }
+
+    .pdf-viewer {
+      width: 100%;
+      max-width: 1200px;
+      height: 900px;
+      margin: auto;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid #222;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      background: #0d0d0d;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: #777;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        padding: 40px 20px;
+        gap: 40px;
+      }
+
+      h1 {
+        font-size: 2.7rem;
+      }
+
+      .book {
+        width: 240px;
+        height: 360px;
+      }
+
+      .pdf-viewer {
+        height: 650px;
+      }
+    }
+  </style></head>
+<body>  <section class="hero">
+    <div class="book-container">
+      <div class="book">
+        <img src="front.png" alt="The Unknown Cover" />
+      </div>
+    </div><div class="content">
+  <h1>THE UNKNOWN</h1>
+  <div class="tagline">Some experiments never end.</div>
+
+  <div class="blurb">
+    <p><strong>Seven Days After</strong> is a descent into grief, obsession, and something far worse than death. After a revolutionary cancer treatment turns into a catastrophic massacre inside the Groves Research Facility, survivors Markus Oakley, Jay Togay, and Flake Groves are pulled into a nightmare hidden beneath the city.</p>
+    <br>
+    <p>As failed experiments roam abandoned corridors and the facility begins changing itself from the inside out, the line between human and monster starts to disappear. Haunted by guilt and hunted by the very system he created, Flake must confront the terrifying truth behind PROJECT UNKNOWN before it spreads beyond containment.</p>
+    <br>
+    <p>Blending psychological horror, science fiction, survival, and emotional collapse, <strong>Seven Days After</strong> explores what happens when the desire to save humanity becomes the thing that destroys it.</p>
+  </div>
+
+  <div class="buttons">
+    <a class="btn primary" href="#viewer">Read Now</a>
+    <a class="btn secondary" href="The Unknown.pdf" download>Download PDF</a>
+  </div>
+</div>
+
+  </section>  <section class="viewer-section" id="viewer">
+    <h2 class="viewer-title">Read The Unknown</h2><div class="pdf-viewer">
+  <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=The%20Unknown.pdf"></iframe>
+</div>
+
+  </section>  <footer>
+    THE UNKNOWN • Seven Days After • PROJECT UNKNOWN
+  </footer></body>
 </html>
