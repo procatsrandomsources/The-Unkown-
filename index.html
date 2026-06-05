@@ -3,126 +3,168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bookytoons — The Unknown</title>
+  <title>Bookytoons — Editorial Library</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root { 
-      --bg: #0a0a0a; 
-      --surface: #141414; 
-      --text: #ffffff; 
-      --text-muted: #888; 
-      --accent: #fff;
-    }
-    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; line-height: 1.6; }
+    :root { --bg: #050505; --card: #111; --text: #ffffff; --muted: #777; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; }
     
-    /* Navigation */
-    nav { padding: 40px 30px; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 0.2rem; text-transform: uppercase; }
-
-    /* Library Sections */
-    .section-header { margin: 80px 30px 30px; }
-    .section-title { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2rem; color: var(--text-muted); }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 40px; padding: 0 30px; }
+    /* Flip Card */
+    .flip-card { perspective: 1000px; width: 100%; aspect-ratio: 2/3; cursor: pointer; }
+    .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+    .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
     
-    .card { cursor: pointer; transition: transform 0.3s ease; }
-    .card:hover { transform: translateY(-5px); }
+    .flip-front, .flip-back { 
+      position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
+      border-radius: 4px; background-size: cover; background-position: center; border: 1px solid #222;
+    }
+    .flip-front { background-image: url('https://cdn.discordapp.com/attachments/1284984646043439135/1512528497199943871/Untitled92_20260605153828.png'); }
+    .flip-back { background-image: url('https://cdn.discordapp.com/attachments/1284984646043439135/1512528496440639689/Untitled92_20260605154331.png'); transform: rotateY(180deg); }
     
-    /* Book Styling */
-    .book-wrap { perspective: 1000px; }
-    .book { 
-      width: 100%; aspect-ratio: 2/3; border-radius: 4px; 
-      background: #222; position: relative;
-      background-image: url('https://cdn.discordapp.com/attachments/1284984646043439135/1512528497199943871/Untitled92_20260605153828.png');
-      background-size: cover; background-position: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    }
-
-    .book-title { margin-top: 20px; font-size: 1rem; font-weight: 500; }
-    .book-meta { font-size: 0.85rem; color: var(--text-muted); }
-
-    /* Viewer Modal */
-    #viewer-modal { 
-      display: none; position: fixed; inset: 0; background: var(--bg); 
-      z-index: 100; overflow-y: auto;
-    }
-    .modal-nav { padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; }
-    .btn { padding: 8px 20px; border: 1px solid #444; background: transparent; color: white; cursor: pointer; font-size: 0.8rem; border-radius: 2px; transition: 0.2s; }
-    .btn:hover { background: #fff; color: #000; }
-
-    /* Ad Zone */
-    .ad-container { min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+    /* Scroll Behavior */
+    html { scroll-behavior: smooth; }
   </style>
 </head>
-<body>
+<body class="min-h-screen">
 
-<nav>
-  <div class="logo">Bookytoons</div>
-</nav>
-
-<h2 class="section-header"><span class="section-title">Originals</span></h2>
-<div class="grid">
-  <div class="card" onclick="openViewer()">
-    <div class="book-wrap"><div class="book"></div></div>
-    <div class="book-title">The Unknown</div>
-    <div class="book-meta">Book One: The Start</div>
-  </div>
-</div>
-
-<h2 class="section-header"><span class="section-title">Coming Soon</span></h2>
-<div class="grid">
-  <div class="card" style="opacity:0.4; cursor: default;">
-    <div class="book-wrap"><div class="book" style="background-image:none; border: 1px solid #333;"></div></div>
-    <div class="book-title">Series Expansion</div>
-  </div>
-</div>
-
-<!-- Custom Viewer -->
-<div id="viewer-modal">
-  <div class="modal-nav">
-    <span>The Unknown — The Start</span>
-    <button onclick="closeViewer()" class="btn">Close</button>
-  </div>
-  
-  <!-- Ad Phase -->
-  <div id="ad-phase" class="ad-container">
-    <h2 id="ad-title" style="margin-bottom: 20px; font-weight:400; letter-spacing: 0.1rem;">Sponsor Required to Proceed</h2>
-    <div style="width:100%; max-width:600px; height:340px; background:#000; margin-bottom:20px;">
-      <iframe id="ad-video" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  <!-- Nav -->
+  <nav class="sticky top-0 bg-[#050505]/80 backdrop-blur-md p-6 border-b border-white/5 flex items-center justify-between z-40">
+    <div class="text-xl font-bold tracking-widest">BOOKYTOONS</div>
+    <div class="flex gap-4 text-xs uppercase tracking-widest text-muted">
+      <a href="#originals" class="hover:text-white">Originals</a>
+      <a href="#non-originals" class="hover:text-white">Non-Originals</a>
+      <a href="#coming-soon" class="hover:text-white">Coming Soon</a>
     </div>
-    <button id="ad-btn" class="btn" style="padding: 15px 40px;" onclick="playAd()">Watch Sponsored Ad</button>
-  </div>
+  </nav>
 
-  <!-- Reader Phase -->
-  <div id="reader-phase" style="display:none; padding: 40px 20px;">
-    <div style="position:relative;padding-top:max(60%,324px);width:100%;height:0;">
-      <iframe style="position:absolute;border:none;width:100%;height:100%;left:0;top:0;" src="https://online.fliphtml5.com/cyvst/dkob/" title="The Unkown" seamless="seamless" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" ></iframe>
+  <!-- Content -->
+  <main class="p-8 space-y-16">
+    
+    <!-- Section: Originals -->
+    <section id="originals">
+      <h2 class="text-sm uppercase tracking-widest text-muted mb-8">Originals</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+        <!-- The Unkown Series -->
+        <div class="group cursor-pointer" onclick="openSeries('The Unkown Series')">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-front"></div>
+              <div class="flip-back"></div>
+            </div>
+          </div>
+          <h3 class="mt-4 text-sm font-medium">The Unkown Series</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Non-Originals -->
+    <section id="non-originals">
+      <h2 class="text-sm uppercase tracking-widest text-muted mb-8">Non-Originals</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 opacity-40">
+        <div class="border border-dashed border-white/10 aspect-[2/3] flex items-center justify-center rounded-sm">
+          <span class="text-xs">Coming Soon</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Coming Soon -->
+    <section id="coming-soon">
+      <h2 class="text-sm uppercase tracking-widest text-muted mb-8">Coming Soon Series</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 opacity-40">
+        <div class="border border-dashed border-white/10 aspect-[2/3] flex items-center justify-center rounded-sm">
+          <span class="text-xs">Coming Soon</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Series Books Modal (Reused for books) -->
+  <div id="books-modal" class="fixed inset-0 bg-black z-50 hidden p-8 overflow-y-auto">
+    <button onclick="closeBooks()" class="text-sm border border-white/20 px-4 py-2 rounded-full mb-8 hover:bg-white/10">← Back</button>
+    <h1 id="series-title" class="text-3xl font-bold mb-8">The Unkown Series</h1>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+      <!-- Active Book -->
+      <div class="cursor-pointer" onclick="openViewer()">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-front"></div>
+            <div class="flip-back"></div>
+          </div>
+        </div>
+        <h3 class="mt-4 text-sm font-medium">Book One: The Start</h3>
+      </div>
+      <!-- 5 Coming Soon Book Placeholders -->
+      <div class="opacity-30"><div class="flip-card border border-dashed border-white/10 flex items-center justify-center rounded-sm"><span class="text-muted text-xs">Soon</span></div><h3 class="mt-4 text-sm font-medium">Coming Soon</h3></div>
+      <div class="opacity-30"><div class="flip-card border border-dashed border-white/10 flex items-center justify-center rounded-sm"><span class="text-muted text-xs">Soon</span></div><h3 class="mt-4 text-sm font-medium">Coming Soon</h3></div>
+      <div class="opacity-30"><div class="flip-card border border-dashed border-white/10 flex items-center justify-center rounded-sm"><span class="text-muted text-xs">Soon</span></div><h3 class="mt-4 text-sm font-medium">Coming Soon</h3></div>
+      <div class="opacity-30"><div class="flip-card border border-dashed border-white/10 flex items-center justify-center rounded-sm"><span class="text-muted text-xs">Soon</span></div><h3 class="mt-4 text-sm font-medium">Coming Soon</h3></div>
+      <div class="opacity-30"><div class="flip-card border border-dashed border-white/10 flex items-center justify-center rounded-sm"><span class="text-muted text-xs">Soon</span></div><h3 class="mt-4 text-sm font-medium">Coming Soon</h3></div>
     </div>
   </div>
-</div>
 
-<script>
-  function openViewer() { document.getElementById('viewer-modal').style.display = 'block'; }
-  function closeViewer() { document.getElementById('viewer-modal').style.display = 'none'; }
+  <!-- Reader Modal -->
+  <div id="viewer-modal" class="fixed inset-0 bg-black z-[60] hidden">
+    <div class="p-6 flex justify-between items-center border-b border-white/10">
+      <button onclick="closeViewer()" class="text-sm border border-white/20 px-4 py-2 rounded-full hover:bg-white/10">Close</button>
+    </div>
 
-  function playAd() {
-    const btn = document.getElementById('ad-btn');
-    const title = document.getElementById('ad-title');
-    const video = document.getElementById('ad-video');
-    
-    btn.style.display = 'none';
-    video.src = "https://www.youtube.com/embed/OHbw_GA1Ohk?autoplay=1&mute=1";
-    
-    let time = 10;
-    title.innerText = "Sponsor message active: " + time + "s";
-    const interval = setInterval(() => {
-      time--;
-      title.innerText = "Sponsor message active: " + time + "s";
-      if(time <= 0) {
-        clearInterval(interval);
-        document.getElementById('ad-phase').style.display = 'none';
-        document.getElementById('reader-phase').style.display = 'block';
+    <!-- Ad Phase -->
+    <div id="ad-phase" class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+      <h2 class="text-2xl font-light mb-6">Unlock Access</h2>
+      <div id="video-wrapper" class="hidden w-full max-w-[600px] h-[340px] mb-6 bg-white/5 rounded-lg overflow-hidden">
+        <iframe id="ad-video" class="w-full h-full" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <button id="ad-btn" onclick="playAd()" class="bg-white text-black px-8 py-3 rounded-full font-bold">Watch Ad to Unlock</button>
+      <div id="timer" class="mt-4 text-muted font-mono"></div>
+    </div>
+
+    <!-- Reader Phase -->
+    <div id="reader-phase" class="hidden w-full h-[calc(100vh-80px)] overflow-hidden">
+      <div style="position:relative;padding-top:max(60%,324px);width:100%;height:0;">
+        <iframe style="position:absolute;border:none;width:100%;height:100%;left:0;top:0;" src="https://online.fliphtml5.com/cyvst/dkob/" title="The Unkown" seamless="seamless" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openSeries(title) {
+      document.getElementById('series-title').innerText = title;
+      document.getElementById('books-modal').classList.remove('hidden');
+    }
+    function closeBooks() { document.getElementById('books-modal').classList.add('hidden'); }
+
+    function closeViewer() { document.getElementById('viewer-modal').classList.add('hidden'); }
+
+    function openViewer() {
+      document.getElementById('viewer-modal').classList.remove('hidden');
+      if(localStorage.getItem('adWatched') === 'true') {
+        document.getElementById('ad-phase').classList.add('hidden');
+        document.getElementById('reader-phase').classList.remove('hidden');
+      } else {
+        document.getElementById('ad-phase').classList.remove('hidden');
+        document.getElementById('reader-phase').classList.add('hidden');
       }
-    }, 1000);
-  }
-</script>
+    }
+
+    function playAd() {
+      document.getElementById('ad-btn').classList.add('hidden');
+      const wrapper = document.getElementById('video-wrapper');
+      wrapper.classList.remove('hidden');
+      document.getElementById('ad-video').src = "https://www.youtube.com/embed/OHbw_GA1Ohk?autoplay=1&mute=1";
+      
+      let time = 10;
+      const timer = document.getElementById('timer');
+      const interval = setInterval(() => {
+        time--;
+        timer.innerText = "Ad active: " + time + "s";
+        if(time <= 0) {
+          clearInterval(interval);
+          localStorage.setItem('adWatched', 'true');
+          document.getElementById('ad-phase').classList.add('hidden');
+          document.getElementById('reader-phase').classList.remove('hidden');
+        }
+      }, 1000);
+    }
+  </script>
 </body>
 </html>
