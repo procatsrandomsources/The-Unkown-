@@ -1,83 +1,101 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bookytoons — Originals & Series</title>
+  <title>Bookytoons — The Unknown</title>
   <style>
-    :root { --bg: #050505; --card: #111; --text: #fff; --muted: #777; }
-    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; }
+    :root { 
+      --bg: #0a0a0a; 
+      --surface: #141414; 
+      --text: #ffffff; 
+      --text-muted: #888; 
+      --accent: #fff;
+    }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; line-height: 1.6; }
     
-    nav { padding: 30px; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; }
+    /* Navigation */
+    nav { padding: 40px 30px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 0.2rem; text-transform: uppercase; }
 
-    .book-wrap { perspective: 1000px; display: inline-block; cursor: pointer; }
+    /* Library Sections */
+    .section-header { margin: 80px 30px 30px; }
+    .section-title { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2rem; color: var(--text-muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 40px; padding: 0 30px; }
+    
+    .card { cursor: pointer; transition: transform 0.3s ease; }
+    .card:hover { transform: translateY(-5px); }
+    
+    /* Book Styling */
+    .book-wrap { perspective: 1000px; }
     .book { 
-      width: 150px; height: 220px; border-radius: 8px; 
-      transition: 0.5s; transform-style: preserve-3d;
-      animation: bob 3s infinite ease-in-out;
-      background: url('https://raw.githubusercontent.com/procatsrandomsources/The-Unkown-/refs/heads/main/Front.png') center/cover;
-    }
-    .book-wrap:hover .book { animation: hover-anim 1.5s infinite ease-in-out; }
-    @keyframes bob { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
-    @keyframes hover-anim {
-      0% { transform: rotateY(0deg) translateY(0); }
-      25% { transform: rotateY(180deg) translateY(-20px); }
-      50% { transform: rotateY(180deg) translateX(20px); }
-      75% { transform: rotateY(180deg) translateX(-20px); }
-      100% { transform: rotateY(0deg) translateY(0); }
+      width: 100%; aspect-ratio: 2/3; border-radius: 4px; 
+      background: #222; position: relative;
+      background-image: url('https://cdn.discordapp.com/attachments/1284984646043439135/1512528497199943871/Untitled92_20260605153828.png');
+      background-size: cover; background-position: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
 
-    .section-title { margin: 50px 30px 20px; font-size: 1.8rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 30px; padding: 0 30px; }
-    .card { background: var(--card); padding: 15px; border-radius: 12px; text-align: center; cursor: pointer; }
-    
+    .book-title { margin-top: 20px; font-size: 1rem; font-weight: 500; }
+    .book-meta { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* Viewer Modal */
     #viewer-modal { 
       display: none; position: fixed; inset: 0; background: var(--bg); 
-      z-index: 100; overflow: hidden; padding: 20px;
+      z-index: 100; overflow-y: auto;
     }
-    .ad-container { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .btn { padding: 15px 30px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; background: white; color: black; }
+    .modal-nav { padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; }
+    .btn { padding: 8px 20px; border: 1px solid #444; background: transparent; color: white; cursor: pointer; font-size: 0.8rem; border-radius: 2px; transition: 0.2s; }
+    .btn:hover { background: #fff; color: #000; }
+
+    /* Ad Zone */
+    .ad-container { min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
   </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">BOOKYTOONS</div>
+  <div class="logo">Bookytoons</div>
 </nav>
 
-<h2 class="section-title">Originals</h2>
+<h2 class="section-header"><span class="section-title">Originals</span></h2>
 <div class="grid">
   <div class="card" onclick="openViewer()">
     <div class="book-wrap"><div class="book"></div></div>
-    <h3>The Unknown</h3>
-    <p>Book One: The Start</p>
+    <div class="book-title">The Unknown</div>
+    <div class="book-meta">Book One: The Start</div>
   </div>
 </div>
 
-<h2 class="section-title">Coming Soon</h2>
+<h2 class="section-header"><span class="section-title">Coming Soon</span></h2>
 <div class="grid">
-  <div class="card"><div class="book" style="opacity: 0.3; background-image: none; background-color: #222;"></div><p style="color:#777">Coming Soon</p></div>
-  <div class="card"><div class="book" style="opacity: 0.3; background-image: none; background-color: #222;"></div><p style="color:#777">Coming Soon</p></div>
-  <div class="card"><div class="book" style="opacity: 0.3; background-image: none; background-color: #222;"></div><p style="color:#777">Coming Soon</p></div>
-  <div class="card"><div class="book" style="opacity: 0.3; background-image: none; background-color: #222;"></div><p style="color:#777">Coming Soon</p></div>
-  <div class="card"><div class="book" style="opacity: 0.3; background-image: none; background-color: #222;"></div><p style="color:#777">Coming Soon</p></div>
+  <div class="card" style="opacity:0.4; cursor: default;">
+    <div class="book-wrap"><div class="book" style="background-image:none; border: 1px solid #333;"></div></div>
+    <div class="book-title">Series Expansion</div>
+  </div>
 </div>
 
+<!-- Custom Viewer -->
 <div id="viewer-modal">
-  <button onclick="closeViewer()" class="btn" style="background:#222; color:white; position:absolute; top:20px; left:20px; z-index: 101;">Close</button>
+  <div class="modal-nav">
+    <span>The Unknown — The Start</span>
+    <button onclick="closeViewer()" class="btn">Close</button>
+  </div>
   
+  <!-- Ad Phase -->
   <div id="ad-phase" class="ad-container">
-    <h2 id="ad-title">Watch Ad to Unlock</h2>
-    <div style="width:100%; max-width:600px; height:340px; margin:20px;">
+    <h2 id="ad-title" style="margin-bottom: 20px; font-weight:400; letter-spacing: 0.1rem;">Sponsor Required to Proceed</h2>
+    <div style="width:100%; max-width:600px; height:340px; background:#000; margin-bottom:20px;">
       <iframe id="ad-video" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
-    <button id="ad-btn" class="btn" onclick="playAd()">Watch Ad</button>
+    <button id="ad-btn" class="btn" style="padding: 15px 40px;" onclick="playAd()">Watch Sponsored Ad</button>
   </div>
 
-  <div id="reader-phase" style="display:none; height:100%;">
-    <iframe src="https://online.fliphtml5.com/cyvst/lqcy/" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+  <!-- Reader Phase -->
+  <div id="reader-phase" style="display:none; padding: 40px 20px;">
+    <div style="position:relative;padding-top:max(60%,324px);width:100%;height:0;">
+      <iframe style="position:absolute;border:none;width:100%;height:100%;left:0;top:0;" src="https://online.fliphtml5.com/cyvst/dkob/" title="The Unkown" seamless="seamless" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" ></iframe>
+    </div>
   </div>
 </div>
 
@@ -94,10 +112,10 @@
     video.src = "https://www.youtube.com/embed/OHbw_GA1Ohk?autoplay=1&mute=1";
     
     let time = 10;
-    title.innerText = "Ad ends in: " + time + "s";
+    title.innerText = "Sponsor message active: " + time + "s";
     const interval = setInterval(() => {
       time--;
-      title.innerText = "Ad ends in: " + time + "s";
+      title.innerText = "Sponsor message active: " + time + "s";
       if(time <= 0) {
         clearInterval(interval);
         document.getElementById('ad-phase').style.display = 'none';
@@ -108,4 +126,3 @@
 </script>
 </body>
 </html>
-
